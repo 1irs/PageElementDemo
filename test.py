@@ -24,7 +24,7 @@ def test_search_home() -> None:
 
     home_page = HomePage(driver)
     home_page.open()
-    home_page.set_search_query(111)  # samsung
+    home_page.set_search_query("samsung")
     home_page.click_search()
 
     assert "Search - samsung" in driver.page_source
