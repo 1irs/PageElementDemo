@@ -13,6 +13,7 @@ class PageElement:
     """
 
     def __init__(self, driver: WebDriver, locator: Tuple[str, str]):
+        """Constructor"""
         self.driver = driver
         self.locator = locator
 
