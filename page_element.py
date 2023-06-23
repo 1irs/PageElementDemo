@@ -25,11 +25,8 @@ class PageElement:
         return self.driver.find_element(*self.locator)
 
     def click(self) -> None:
-        """Click the element.
-
-        """
+        """Click the element."""
         self._get_el().click()
 
     def send_keys(self, value: str) -> None:
         self._get_el().send_keys(value)
-

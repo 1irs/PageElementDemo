@@ -5,13 +5,18 @@ from page_element import PageElement
 
 
 class HomePage:
-
     def __init__(self, driver: WebDriver):
         self.driver = driver
-        self.search_button = PageElement(self.driver, (By.CSS_SELECTOR, "button.btn-default"))
+        self.search_button = PageElement(
+            self.driver, (By.CSS_SELECTOR, "button.btn-default")
+        )
         self.search_field = PageElement(self.driver, (By.NAME, "search"))
-        self.shopping_cart = PageElement(self.driver, (By.CSS_SELECTOR, "button.btn-default"))
-        self.shopping_cart_menu = PageElement(self.driver, (By.LINK_TEXT, "Shopping Cart"))
+        self.shopping_cart = PageElement(
+            self.driver, (By.CSS_SELECTOR, "button.btn-default")
+        )
+        self.shopping_cart_menu = PageElement(
+            self.driver, (By.LINK_TEXT, "Shopping Cart")
+        )
 
     def open(self) -> None:
         self.driver.get("https://tutorialsninja.com/demo/index.php")
