@@ -1,3 +1,4 @@
+"""Page element implementation. Generic operations over standard HTML WebElements."""
 from typing import Tuple
 
 from selenium.webdriver.remote.webdriver import WebDriver
@@ -30,4 +31,8 @@ class PageElement:
         self._get_el().click()
 
     def send_keys(self, value: str) -> None:
+        """Send 'value' keys to given element.
+
+        :param value: value to send to the given element.
+        """
         self._get_el().send_keys(value)

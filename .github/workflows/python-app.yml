@@ -28,3 +28,6 @@ jobs:
     - name: Type checking
       run: |
         mypy .
+    - name: Pylinting
+      run: |
+        pylint *.py
