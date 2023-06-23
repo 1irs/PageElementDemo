@@ -6,7 +6,7 @@ from home_page import HomePage
 from search_page import SearchPage
 
 
-def test():
+def test() -> None:
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
     home_page = HomePage(driver)
@@ -19,7 +19,7 @@ def test():
     driver.quit()
 
 
-def test_search_home():
+def test_search_home() -> None:
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
     home_page = HomePage(driver)
@@ -32,7 +32,7 @@ def test_search_home():
     driver.quit()
 
 
-def test_search_page():
+def test_search_page() -> None:
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
     search_page = SearchPage(driver)
