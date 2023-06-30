@@ -30,6 +30,10 @@ class PageElement:
         """Gets element text."""
         return self._get_el().text
 
+    def value(self) -> str:
+        """Gets element value. Useful for <input>."""
+        return self._get_el().get_attribute("value")
+
     def click(self) -> None:
         """Click the element."""
         self._get_el().click()
@@ -40,3 +44,7 @@ class PageElement:
         :param value: value to send to the given element.
         """
         self._get_el().send_keys(value)
+
+    def clear(self) -> None:
+        """Clears the contents of the element (<input>)."""
+        self._get_el().clear()
