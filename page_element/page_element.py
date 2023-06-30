@@ -26,6 +26,10 @@ class PageElement:
         """
         return self.driver.find_element(*self.locator)
 
+    def text(self) -> str:
+        """Gets element text."""
+        return self._get_el().text
+
     def click(self) -> None:
         """Click the element."""
         self._get_el().click()
