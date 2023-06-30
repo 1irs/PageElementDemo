@@ -30,7 +30,7 @@ class PageElement:
         """Gets element text."""
         return self._get_el().text
 
-    def value(self) -> str:
+    def value(self) -> str | None:
         """Gets element value. Useful for <input>."""
         return self._get_el().get_attribute("value")
 
