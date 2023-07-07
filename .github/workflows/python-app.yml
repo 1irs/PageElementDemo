@@ -31,3 +31,6 @@ jobs:
     - name: Pylinting
       run: |
         pylint *.py
+    - name: Tests
+      run: |
+        pytest page_element/

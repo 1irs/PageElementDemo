@@ -1,6 +1,7 @@
 """Fixtures."""
 import os
 from typing import Generator
+import pathlib
 
 import pytest
 from selenium import webdriver
@@ -15,7 +16,7 @@ def driver() -> Generator[WebDriver, None, None]:
 
     # Set up.
     drv = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-    abs_path = os.path.abspath("test.html")
+    abs_path = os.path.join(pathlib.Path(__file__).parent.resolve(), "test.html")
     drv.get("file://" + abs_path)
     yield drv
 
