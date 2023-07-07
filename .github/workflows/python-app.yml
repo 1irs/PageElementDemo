@@ -49,6 +49,7 @@ jobs:
         pytest page_element --html=reports/report.html --self-contained-html
     - name: Archive test artifacts
       uses: actions/upload-artifact@v3
+      if: always()
       with:
         name: test-reports
         path: reports
