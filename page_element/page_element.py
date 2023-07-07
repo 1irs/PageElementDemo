@@ -32,7 +32,7 @@ class PageElement:
 
     def value(self) -> str | None:
         """Gets element value. Useful for <input>."""
-        return ""  # self._get_el().get_attribute("value")
+        return self._get_el().get_attribute("value")
 
     def click(self) -> None:
         """Click the element."""
