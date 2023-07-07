@@ -4,6 +4,7 @@ from typing import Generator
 import pathlib
 
 import pytest
+from _pytest.fixtures import SubRequest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.remote.webdriver import WebDriver
@@ -18,7 +19,7 @@ def driver() -> Generator[WebDriver, None, None]:
     driver_kind = os.environ["DRIVER_KIND"]
     match driver_kind:
         case "chrome":
-            drv = webdriver.Chrome(
+            drv: WebDriver = webdriver.Chrome(
                 service=ChromeService(ChromeDriverManager().install())
             )
         case "remote":
@@ -41,7 +42,9 @@ def driver() -> Generator[WebDriver, None, None]:
 
 
 @pytest.fixture
-def save_screenshot(driver, request) -> None:
+def save_screenshot(
+    driver: WebDriver, request: SubRequest
+) -> Generator[None, None, None]:
     yield None
     driver.save_screenshot(f"reports/{request.node.name}.png")
 
