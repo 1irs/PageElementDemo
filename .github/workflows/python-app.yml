@@ -14,6 +14,14 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      browserless:
+        image: browserless/chrome:latest
+        env:
+          ALLOW_FILE_PROTOCOL: "true"
+        ports:
+          - 3000:3000
+
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.11
@@ -33,4 +41,11 @@ jobs:
         pylint *.py
     - name: Tests
       run: |
-        pytest page_element/
+        mkdir reports
+        ./upload_test_files.sh
+        pytest page_element --html=reports/report.html --self-contained-html
+    - name: Archive test artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-reports
+        path: reports

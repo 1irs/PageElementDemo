@@ -15,10 +15,51 @@ def driver() -> Generator[WebDriver, None, None]:
     """Returns initialized WedDriver instance with a test page opened."""
 
     # Set up.
-    drv = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-    abs_path = os.path.join(pathlib.Path(__file__).parent.resolve(), "test.html")
-    drv.get("file://" + abs_path)
+    driver_kind = os.environ["DRIVER_KIND"]
+    match driver_kind:
+        case "chrome":
+            drv = webdriver.Chrome(
+                service=ChromeService(ChromeDriverManager().install())
+            )
+        case "remote":
+            chrome_options = webdriver.ChromeOptions()
+            chrome_options.add_argument("--no-sandbox")
+            chrome_options.add_argument("--headless")
+            drv = webdriver.Remote(
+                command_executor="http://localhost:3000/webdriver",
+                options=chrome_options,
+            )
+        case _:
+            raise RuntimeError(
+                f"Unknown DRIVER_KIND: {driver_kind}. Must be one of: chrome, remote."
+            )
+
     yield drv
 
     # Tear down.
     drv.quit()
+
+
+@pytest.fixture
+def save_screenshot(driver, request) -> None:
+    yield None
+    driver.save_screenshot(f"reports/{request.node.name}.png")
+
+
+@pytest.fixture
+def page_under_test() -> str:
+    """Gets address of a test page."""
+    driver_kind = os.environ["DRIVER_KIND"]
+    match driver_kind:
+        case "chrome":
+            abs_path = os.path.join(
+                pathlib.Path(__file__).parent.resolve(), "test_files/test.html"
+            )
+        case "remote":
+            abs_path = "/usr/src/app/workspace/test.html"
+        case _:
+            raise RuntimeError(
+                f"Unknown DRIVER_KIND: {driver_kind}. Must be one of: chrome, remote."
+            )
+
+    return "file://" + abs_path
