@@ -9,6 +9,9 @@ on:
 permissions:
   contents: read
 
+env:
+  DRIVER_KIND: remote
+
 jobs:
   build:
 
